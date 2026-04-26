@@ -1,0 +1,57 @@
+services:
+
+  db:
+    build: ./db
+    container_name: mysql_db_amizade
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    # No 'ports' block — the database is only reachable inside amizade-net
+    volumes:  
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - amizade-net
+
+  backend:
+    container_name: backend_amizade
+    build: ./backend
+    restart: always
+    # No 'ports' block — Nginx reaches this over the internal network
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - amizade-net
+
+  frontend:
+    container_name: frontend_amizade
+    build: ./frontend
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"   
+    depends_on:
+      - backend
+    networks:
+      - amizade-net
+
+networks:
+  amizade-net:
+    driver: bridge
+
+volumes:
+  db-data:

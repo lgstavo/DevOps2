@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+:root {
+  /* Cores de Fundo */
+  --color-background: #0f172a; /* Fundo principal escuro (Slate 900) */
+  --color-background-soft: #1e293b; /* Fundo dos cards (Slate 800) */
+  --color-background-input: #0f172a; /* Fundo dos inputs */
+
+  /* Cores de Borda */
+  --color-border: #334155; /* Bordas sutis */
+  --color-border-hover: #475569; /* Bordas ao passar o mouse */
+
+  /* Cores de Texto */
+  --color-heading: #f8fafc; /* Títulos em branco suave */
+  --color-text: #e2e8f0; /* Texto principal legível */
+  --color-text-soft: #94a3b8; /* Texto secundário/labels com bom contraste */
+
+  /* Cores de Ação (Primárias) */
+  --color-primary: #3b82f6; /* Azul moderno */
+  --color-primary-hover: #2563eb;
+
+  /* Cores de Ação (Sucesso) */
+  --color-success: #10b981; /* Verde esmeralda */
+  --color-success-hover: #059669;
+
+  /* Cores de Ação (Perigo/Rejeitar) */
+  --color-danger: #ef4444; /* Vermelho suave */
+  --color-danger-hover: #dc2626;
+}
+
+/* =================================================================== */
+/* 2. RESET BÁSICO E ESTILOS GLOBAIS                                   */
+/* =================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* =================================================================== */
+/* 3. ESTILOS DOS COMPONENTES BASE                                     */
+/* =================================================================== */
+
+.container {
+  background-color: var(--color-background-soft);
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Sombra adaptada para dark mode */
+  border: 1px solid var(--color-border);
+  width: 90%;
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+/* Tipografia */
+h2, h3 {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 1.75rem;
+}
+
+h3 {
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 12px;
+  margin-top: 32px;
+  margin-bottom: 20px;
+  font-size: 1.25rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--color-text-soft);
+  font-size: 0.95rem;
+}
+
+/* Formulários */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--color-background-input);
+  color: var(--color-text);
+  transition: all 0.2s ease;
+}
+
+input::placeholder {
+  color: var(--color-text-soft);
+  opacity: 0.7;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  outline: none;
+}
+
+/* Botões Globais */
+button {
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+/* =================================================================== */
+/* 4. ESTILOS ESPECÍFICOS (DASHBOARD)                                  */
+/* =================================================================== */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  text-align: left;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-buttons button {
+  width: auto;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.nav-buttons button:hover {
+  background-color: var(--color-border);
+}
+
+/* Listas */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.05rem;
+}
+
+ul li:last-child {
+  border-bottom: none;
+}
+
+/* Botões de Ação na Lista */
+.send-request-btn,
+.accept-request-btn,
+.reject-request-btn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  width: auto;
+  margin-left: 10px;
+  border-radius: 6px;
+}
+
+.accept-request-btn {
+  background-color: var(--color-success);
+}
+
+.accept-request-btn:hover {
+  background-color: var(--color-success-hover);
+}
+
+.reject-request-btn {
+  background-color: var(--color-danger);
+  margin-left: 8px;
+}
+
+.reject-request-btn:hover {
+  background-color: var(--color-danger-hover);
+}
