@@ -60,7 +60,7 @@ Para rodar a aplicação no seu ambiente local, siga os passos abaixo:
    JWT_SECRET="a2c4e6858c1b4e29a3f2d8e5g1h3i5j7k9l2m4n6o8p1q3r5s7t9u1v3w5x7y9z0a2b4"
 ```
 
-2. **Construir e enviar imagens para o Docker Hub:**
+3. **Construir e enviar imagens para o Docker Hub:**
 
 ```bash
    docker build -t lgstavo/frontend ./frontend
