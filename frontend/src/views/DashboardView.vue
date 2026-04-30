@@ -325,7 +325,10 @@ ul {
   transition: background-color 0.2s;
 }
 
-.add-button { background-color: #007bff; }
+.add-button { 
+  display:flex;
+  justify-content:center;
+  background-color: #007bff; }
 .add-button:hover { background-color: #0056b3; }
 
 .accept-button { background-color: #28a745; }
