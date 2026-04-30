@@ -68,7 +68,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         new WebAuthenticationDetailsSource().buildDetails(request)
                 );
 
-                // 7. ATUALIZA O CONTEXTO DE SEGURANÇA. Este é o passo que "autentica" o usuário para esta requisição.
+                // 7. ATUALIZA O CONTEXTO DE SEGURANÇA.
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
