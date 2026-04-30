@@ -26,8 +26,8 @@ CREATE TABLE IF NOT EXISTS friendships (
     user_id2 BIGINT NOT NULL,
     FOREIGN KEY (user_id1) REFERENCES users(id),
     FOREIGN KEY (user_id2) REFERENCES users(id),
-    -- Garante que a amizade seja única e simétrica
-    UNIQUE KEY unique_friendship (LEAST(user_id1, user_id2), GREATEST(user_id1, user_id2))
+    -- Garante que a amizade seja única e simétrica (Requer MySQL 8.0.13+)
+    UNIQUE KEY unique_friendship ( (LEAST(user_id1, user_id2)), (GREATEST(user_id1, user_id2)) )
 );
 
 CREATE TABLE IF NOT EXISTS postagens (

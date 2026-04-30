@@ -15,8 +15,8 @@ export default {
   <div class="sidebar" :style="{ width: sidebarWidth }">
     <div class="sidebar-header">
       <h1 class="sidebar-title">
-        <span v-if="collapsed">DMR</span>
-        <span v-else>Demorô</span>
+        <span v-if="collapsed">FW</span>
+        <span v-else>Friendship Web</span>
       </h1>
     </div>
 

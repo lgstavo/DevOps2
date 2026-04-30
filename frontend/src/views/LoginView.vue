@@ -122,7 +122,7 @@ button {
   padding: 0.75rem;
   border: none;
   border-radius: 4px;
-  background-color: hsla(160, 100%, 37%, 1);
+  background-color: #007bff;
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -130,7 +130,7 @@ button {
 }
 
 button:hover {
-  background-color: hsla(160, 100%, 37%, 0.8);
+  background-color: #0056b3;
 }
 
 .error-message {
