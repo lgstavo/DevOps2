@@ -72,10 +72,10 @@ Para rodar a aplicação no seu ambiente local, siga os passos abaixo:
    docker push lgstavo/db
 ```
 
-3. **Inicializar o container:**
+4. **Inicializar o container:**
 
 ```bash
    docker compose up --build
 ```
 
-4. **Acessar a aplicação em [localhost](http://localhost:80)**
+5. **Acessar a aplicação em [localhost](http://localhost:80)**
