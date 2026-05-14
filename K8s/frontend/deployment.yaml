@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rede-social-frontend
+  labels:
+    app: rede-social-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rede-social-frontend
+  template:
+    metadata:
+      labels:
+        app: rede-social-frontend
+    spec:
+      containers:
+        - name: rede-social-frontend
+          image: lgstavo/frontend
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "1"
+            limits:
+              memory: "2Gi"
+              cpu: "2"

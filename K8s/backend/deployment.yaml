@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rede-social-backend
+  labels:
+    app: rede-social-backend
+spec:
+  selector:
+    matchLabels:
+      app: rede-social-backend
+  template:
+    metadata:
+      labels:
+        app: rede-social-backend
+    spec:
+      containers:
+        - name: backend
+          image: lgstavo/backend
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: rede-social-db-configmap
+                  key: DB_HOST
+            
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: rede-social-db-configmap
+                  key: DB_NAME
+
+            - name: JWT_EXPIRATION
+              valueFrom:
+                configMapKeyRef:
+                  name: rede-social-db-configmap
+                  key: JWT_EXPIRATION
+                  optional: true 
+
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: rede-social-db-secrets
+                  key: DB_USER
+            
+            - name: DB_PASSWORD 
+              valueFrom:
+                secretKeyRef:
+                  name: rede-social-db-secrets
+                  key: DB_PASSWORD
+
+            - name: JWT_SECRET 
+              valueFrom:
+                secretKeyRef:
+                  name: rede-social-db-secrets
+                  key: JWT_SECRET
+
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "1"
+            limits:
+              memory: "2Gi"
+              cpu: "2"
