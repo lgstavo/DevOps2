@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: gateway-ingress
 spec:
+  ingressClassName: nginx
   rules:
   - host: redesocial.k8s.local
     http:
