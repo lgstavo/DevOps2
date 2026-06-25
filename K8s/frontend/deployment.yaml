@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redesocial-frontend
+  labels:
+    app: redesocial-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redesocial-frontend
+  template:
+    metadata:
+      labels:
+        app: redesocial-frontend
+    spec:
+      containers:
+        - name: redesocial-frontend
+          image: lgstavo/frontend
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "1"
+            limits:
+              memory: "2Gi"
+              cpu: "2"

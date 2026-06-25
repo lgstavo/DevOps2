@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redesocial-backend
+  labels:
+    app: redesocial-backend
+spec:
+  selector:
+    matchLabels:
+      app: redesocial-backend
+  template:
+    metadata:
+      labels:
+        app: redesocial-backend
+    spec:
+      containers:
+        - name: backend
+          image: lgstavo/backend
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: redesocial-db-configmap
+                  key: DB_HOST
+            
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: redesocial-db-configmap
+                  key: DB_NAME
+
+            - name: JWT_EXPIRATION
+              valueFrom:
+                configMapKeyRef:
+                  name: redesocial-db-configmap
+                  key: JWT_EXPIRATION
+                  optional: true 
+
+            - name: APP_CORS_ALLOWED_ORIGINS
+              valueFrom:
+                configMapKeyRef:
+                  name: redesocial-db-configmap
+                  key: APP_CORS_ALLOWED_ORIGINS
+
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: redesocial-db-secrets
+                  key: DB_USER
+            
+            - name: DB_PASSWORD 
+              valueFrom:
+                secretKeyRef:
+                  name: redesocial-db-secrets
+                  key: DB_PASSWORD
+
+            - name: JWT_SECRET 
+              valueFrom:
+                secretKeyRef:
+                  name: redesocial-db-secrets
+                  key: JWT_SECRET
+
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "1"
+            limits:
+              memory: "2Gi"
+              cpu: "2"

@@ -1,0 +1,96 @@
+#!/bin/bash
+
+load_image() {
+    
+    echo "$(echo "Loading")" "$(echo $1)"
+
+    minikube image load $1
+
+    echo "$(echo "Loaded")" "$(echo $1)"
+}
+
+build_backend_image() {
+    
+    ################################################
+    # Gerando a imagem docker do backend
+    ################################################
+    
+    cd backend
+    
+    # eval ${minikube docker-env}
+
+    docker build . -t lgstavo/backend
+    
+    load_image lgstavo/backend
+
+    cd ..
+}
+
+build_frontend_image() {
+    
+    ################################################
+    # Gerando a imagem docker do frontend
+    ################################################
+    
+    cd frontend
+    
+    # eval ${minikube docker-env}
+    
+    docker build . -t lgstavo/frontend
+    
+    load_image lgstavo/frontend
+
+    cd ..
+}
+
+init_minikube() {
+
+    ################################################
+    # Inicializando o Minikube
+    ################################################
+
+    minikube start
+
+    ################################################
+    # Habilitando o Ingress
+    ################################################
+
+    minikube image load k8s.gcr.io/ingress-nginx/controller:v1.9.4
+
+    minikube addons enable ingress
+
+    ################################################
+    # Inicializando o DashBoard
+    ################################################
+
+    minikube addons enable dashboard
+
+    minikube addons enable metrics-server
+
+    minikube dashboard &
+}
+
+################################################
+# Verificando flag -ibf
+################################################
+
+while getopts ":ibf" option; do
+   case $option in
+      i) # inicializando minikube
+         init_minikube
+         load_image mysql:8.0
+         ;;
+      b) # imagem backend
+         build_backend_image
+         ;;
+      f) # imagem frontend
+         build_frontend_image
+         ;;
+   esac
+done
+
+################################################
+# Instalando via helm
+################################################
+
+helm install redesocial redesocial-charts

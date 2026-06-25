@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redesocial-db
+  labels:
+    app: redesocial-db
+spec:
+  selector:
+    matchLabels:
+      app: redesocial-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: redesocial-db
+    spec:
+      containers:
+      - name: redesocial-db
+        image: mysql:8.0
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 3306
+        env:
+          # --- Dados Sensíveis vindo do Secret ---
+          - name: MYSQL_ROOT_PASSWORD 
+            valueFrom:
+              secretKeyRef:
+                name: redesocial-db-secrets
+                key: MYSQL_ROOT_PASSWORD
+          
+          - name: MYSQL_USER 
+            valueFrom:
+              secretKeyRef:
+                name: redesocial-db-secrets
+                key: DB_USER # Usando a mesma chave criada no exemplo anterior
+          
+          - name: MYSQL_PASSWORD 
+            valueFrom:
+              secretKeyRef:
+                name: redesocial-db-secrets
+                key: DB_PASSWORD
+          
+          # --- Dados Não Sensíveis vindo do ConfigMap ---
+          - name: MYSQL_DATABASE 
+            valueFrom:
+              configMapKeyRef:
+                name: redesocial-db-configmap
+                key: DB_NAME
+                
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1"
+          limits:
+            memory: "2Gi"
+            cpu: "2"
+        volumeMounts:
+          - name: redesocial-persistent-storage
+            mountPath: /var/lib/mysql
+      volumes:
+        - name: redesocial-persistent-storage
+          persistentVolumeClaim:
+            claimName: redesocial-pv-claim
