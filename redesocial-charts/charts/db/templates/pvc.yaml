@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: redesocial-pv-claim
+  name: {{.Release.Name}}-pv-claim
 spec:
   storageClassName: manual
   accessModes:

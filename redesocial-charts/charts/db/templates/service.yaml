@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: redesocial-db
+  name: {{.Release.Name}}-db
   labels:
-    run: redesocial-db
+    run: {{.Release.Name}}-db
 spec:
   ports:
     - port: 3306
       targetPort: 3306
       protocol: TCP
   selector:
-    app: redesocial-db
+    app: {{.Release.Name}}-db

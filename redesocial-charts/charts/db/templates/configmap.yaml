@@ -1,8 +1,8 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: redesocial-db-configmap
+  name: {{.Release.Name}}-db-configmap
 data:
   APP_CORS_ALLOWED_ORIGINS: "http://redesocial.k8s.local" 
-  DB_HOST: rede-social-db
+  DB_HOST: redesocial-db
   DB_NAME: amizade_db

@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rede-social-frontend
+  name: redesocial-frontend
   labels:
-    app: rede-social-frontend
+    app: redesocial-frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rede-social-frontend
+      app: redesocial-frontend
   template:
     metadata:
       labels:
-        app: rede-social-frontend
+        app: redesocial-frontend
     spec:
       containers:
-        - name: rede-social-frontend
+        - name: redesocial-frontend
           image: lgstavo/frontend
           imagePullPolicy: IfNotPresent
           ports:
