@@ -12,6 +12,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: rede-social-frontend
+            name: redesocial-frontend
             port:
               number: 80
